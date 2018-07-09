@@ -278,15 +278,17 @@ namespace WindowsFormsApp1
 
         private string GetUrl(string name)
         {
+            System.Net.ServicePointManager.DefaultConnectionLimit = 50;
             string[] textArray1;
             textArray1 = new[] {
                 "http://foreverxip.com/PCNFTS/GetUrl.php?id=", userId, "&pass=", userPass, "&lib=", uiLibrary[name]
             };
             if (uiPCNFTS[name] == "9527最帅!!!破解狗吃屎!!!")
             {
+                System.GC.Collect();
                 var request = (HttpWebRequest) WebRequest.Create(string.Concat(textArray1));
                 var response = (HttpWebResponse) request.GetResponse();
-                var str = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                var str = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException()).ReadToEnd();
                 switch (str)
                 {
                     case "1":
@@ -304,7 +306,16 @@ namespace WindowsFormsApp1
                         Close();
                         break;
                 }
+ 
+                if (response != null)
+                {
+                    response.Close();
+                }
+                if (request != null)
+                {
+                    request.Abort();
 
+                }
                 uiPCNFTS[name] = str;
                 return str;
             }
