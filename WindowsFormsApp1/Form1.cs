@@ -315,183 +315,145 @@ namespace WindowsFormsApp1
 
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            // 
-            // listBox1
-            // 
-            this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(16, 39);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(345, 303);
-            this.listBox1.TabIndex = 1;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(16, 366);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(347, 29);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "安装/卸载";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(16, 535);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(347, 29);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "登录";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(16, 402);
-            this.button7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(347, 29);
-            this.button7.TabIndex = 7;
-            this.button7.Text = "选择YDWE";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 435);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(99, 15);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "选择YDWE路径";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(16, 11);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(59, 19);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "事件";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(160, 11);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(59, 19);
-            this.checkBox2.TabIndex = 10;
-            this.checkBox2.Text = "函数";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Checked = true;
-            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3.Location = new System.Drawing.Point(88, 11);
-            this.checkBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(59, 19);
-            this.checkBox3.TabIndex = 11;
-            this.checkBox3.Text = "动作";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Checked = true;
-            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox4.Location = new System.Drawing.Point(232, 11);
-            this.checkBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(59, 19);
-            this.checkBox4.TabIndex = 12;
-            this.checkBox4.Text = "系统";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(16, 499);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(136, 29);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "赞助";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(227, 499);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(136, 29);
-            this.button3.TabIndex = 14;
-            this.button3.Text = "Bug/建议反馈";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Enabled = false;
-            this.button5.Location = new System.Drawing.Point(227, 462);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(136, 29);
-            this.button5.TabIndex = 15;
-            this.button5.Text = "自定义安装";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // Form1
-            // 
-            this.AutoScaleDimensions = new SizeF(8F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.BackColor = Color.Aqua;
-            this.ClientSize = new Size(379, 579);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.listBox1);
-            this.Font = new Font("宋体", 9F, FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ForeColor = SystemColors.ActiveCaptionText;
-            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            this.Icon = global::Properties.Resources.Icon;
-            this.Margin = new Padding(4, 4, 4, 4);
-            this.Name = "Form1";
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.Text = "NFTSv2.1 QQ:969352269";
-            this.Load += this.Form1_Load;
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            var manager = new ComponentResourceManager(typeof(Form1));
+            listBox1 = new ListBox();
+            button2 = new Button();
+            button4 = new Button();
+            button7 = new Button();
+            label5 = new Label();
+            checkBox1 = new CheckBox();
+            checkBox2 = new CheckBox();
+            checkBox3 = new CheckBox();
+            checkBox4 = new CheckBox();
+            button1 = new Button();
+            button3 = new Button();
+            button5 = new Button();
+            SuspendLayout();
+            listBox1.DrawMode = DrawMode.OwnerDrawFixed;
+            listBox1.FormattingEnabled = true;
+            listBox1.Location = new Point(12, 0x1f);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(260, 0xfb);
+            listBox1.TabIndex = 1;
+            listBox1.Click += listBox1_Click;
+            listBox1.DrawItem += listBox1_DrawItem;
+            listBox1.DoubleClick += listBox1_DoubleClick;
+            listBox1.Leave += listBox1_Leave;
+            button2.Location = new Point(12, 0x125);
+            button2.Name = "button2";
+            button2.Size = new Size(260, 0x17);
+            button2.TabIndex = 2;
+            button2.Text = "安装/卸载";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            button4.Location = new Point(12, 0x1ac);
+            button4.Name = "button4";
+            button4.Size = new Size(260, 0x17);
+            button4.TabIndex = 5;
+            button4.Text = "登录";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            button7.Location = new Point(12, 0x142);
+            button7.Name = "button7";
+            button7.Size = new Size(260, 0x17);
+            button7.TabIndex = 7;
+            button7.Text = "选择YDWE";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
+            label5.AutoSize = true;
+            label5.Location = new Point(10, 0x15c);
+            label5.Name = "label5";
+            label5.Size = new Size(0x4d, 12);
+            label5.TabIndex = 8;
+            label5.Text = "选择YDWE路径";
+            checkBox1.AutoSize = true;
+            checkBox1.Checked = true;
+            checkBox1.CheckState = CheckState.Checked;
+            checkBox1.Location = new Point(12, 9);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(0x30, 0x10);
+            checkBox1.TabIndex = 9;
+            checkBox1.Text = "事件";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += UpdataList;
+            checkBox2.AutoSize = true;
+            checkBox2.Checked = true;
+            checkBox2.CheckState = CheckState.Checked;
+            checkBox2.Location = new Point(120, 9);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(0x30, 0x10);
+            checkBox2.TabIndex = 10;
+            checkBox2.Text = "函数";
+            checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.CheckedChanged += UpdataList;
+            checkBox3.AutoSize = true;
+            checkBox3.Checked = true;
+            checkBox3.CheckState = CheckState.Checked;
+            checkBox3.Location = new Point(0x42, 9);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(0x30, 0x10);
+            checkBox3.TabIndex = 11;
+            checkBox3.Text = "动作";
+            checkBox3.UseVisualStyleBackColor = true;
+            checkBox3.CheckedChanged += UpdataList;
+            checkBox4.AutoSize = true;
+            checkBox4.Checked = true;
+            checkBox4.CheckState = CheckState.Checked;
+            checkBox4.Location = new Point(0xae, 9);
+            checkBox4.Name = "checkBox4";
+            checkBox4.Size = new Size(0x30, 0x10);
+            checkBox4.TabIndex = 12;
+            checkBox4.Text = "系统";
+            checkBox4.UseVisualStyleBackColor = true;
+            checkBox4.CheckedChanged += UpdataList;
+            button1.Location = new Point(12, 0x18f);
+            button1.Name = "button1";
+            button1.Size = new Size(0x66, 0x17);
+            button1.TabIndex = 13;
+            button1.Text = "赞助";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            button3.Location = new Point(170, 0x18f);
+            button3.Name = "button3";
+            button3.Size = new Size(0x66, 0x17);
+            button3.TabIndex = 14;
+            button3.Text = "Bug/建议反馈";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            button5.Enabled = false;
+            button5.Location = new Point(170, 370);
+            button5.Name = "button5";
+            button5.Size = new Size(0x66, 0x17);
+            button5.TabIndex = 15;
+            button5.Text = "自定义安装";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            AutoScaleDimensions = new SizeF(6f, 12f);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Aqua;
+            ClientSize = new Size(0x11c, 0x1cf);
+            Controls.Add(button5);
+            Controls.Add(button3);
+            Controls.Add(button1);
+            Controls.Add(checkBox4);
+            Controls.Add(checkBox3);
+            Controls.Add(checkBox2);
+            Controls.Add(checkBox1);
+            Controls.Add(label5);
+            Controls.Add(button7);
+            Controls.Add(button4);
+            Controls.Add(button2);
+            Controls.Add(listBox1);
+            Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 0x86);
+            ForeColor = SystemColors.ActiveCaptionText;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = Properties.Resources.Icon;
+            Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "NFTSv2.1 QQ:969352269";
+            Load += Form1_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private void Install(string name, string lib)
@@ -902,7 +864,5 @@ namespace WindowsFormsApp1
                     Box.Items.Add(str);
                 else if (uiType[str] == 4 && CB4.Checked) Box.Items.Add(str);
         }
-
-
     }
 }
