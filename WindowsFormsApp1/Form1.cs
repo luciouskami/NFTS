@@ -463,11 +463,10 @@ namespace WindowsFormsApp1
         {
             string str4;
             button2.Enabled = false;
-            button2.Text = "安装中";
+            button2.Text = @"安装中";
             if (yd == 1)
             {
-                string[] textArray1;
-                textArray1 = new[] { ydUrl, "/share/", url_url, "/9527/", lib };
+                var textArray1 = new[] { ydUrl, "/share/", url_url, "/9527/", lib };
                 if (!Directory.Exists(string.Concat(textArray1)))
                     Directory.CreateDirectory(ydUrl + "/share/" + url_url + "/9527/" + lib);
             }
@@ -476,7 +475,6 @@ namespace WindowsFormsApp1
                 Directory.CreateDirectory(ydUrl + "/ui/9527/" + lib);
             }
 
-            var list = new List<string>();
             var path = "";
             var str2 = "";
             var str3 = "";
@@ -484,8 +482,7 @@ namespace WindowsFormsApp1
             {
                 path = ydUrl + "/jass/9527/" + lib;
                 str2 = path;
-                string[] textArray3;
-                textArray3 = new[] { ydUrl, "/share/", url_url, "/9527/", lib };
+                var textArray3 = new[] { ydUrl, "/share/", url_url, "/9527/", lib };
                 str3 = string.Concat(textArray3);
             }
             else if (yd == 2)
@@ -526,7 +523,7 @@ namespace WindowsFormsApp1
                     {
                         CreateFile(str2 + "/" + str6 + ".j", GetHttpData(str6 + ".j", name));
                         CreateFile(str2 + "/" + str6 + ".cfg", GetHttpData(str6 + ".cfg", name));
-                        list.Add(str6);
+                        new List<string>().Add(str6);
                     }
 
                 reader4.Close();
@@ -580,7 +577,7 @@ namespace WindowsFormsApp1
             stream.Close();
             var request = (HttpWebRequest)WebRequest.Create("http://foreverxip.com/PCNFTS/Install.php?lib=" + lib);
             var response = (HttpWebResponse)request.GetResponse();
-            var reader2 = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException());
+            var unused = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException());
             ydConfig.Add(lib);
             UpdataList2();
             button2.Text = @"安装";
@@ -608,7 +605,7 @@ namespace WindowsFormsApp1
                         if (userList.Contains(uiLibrary[str]))
                             button2.Text = @"安装";
                         else
-                            button2.Text = @"购买(滑稽币：" + uiPrice[str] + ")";
+                            button2.Text = @"购买(滑稽币：" + uiPrice[str] + @")";
                     }
                     else
                     {
@@ -666,7 +663,7 @@ namespace WindowsFormsApp1
             userName = user;
             userGold = int.Parse(gold);
             userPass = pass;
-            userBt.Text = user + @"(滑稽币：" + gold + ")";
+            userBt.Text = user + @"(滑稽币：" + gold + @")";
             userBt.Enabled = false;
         }
 
