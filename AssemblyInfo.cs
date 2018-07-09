@@ -12,11 +12,11 @@ using System.Runtime.InteropServices;
                DebuggableAttribute.DebuggingModes.EnableEditAndContinue |
                DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints |
                DebuggableAttribute.DebuggingModes.Default)]
-[assembly: AssemblyTitle("WindowsFormsApp1")]
+[assembly: AssemblyTitle("NFTS")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WindowsFormsApp1")]
+[assembly: AssemblyProduct("NFTS")]
 [assembly: AssemblyCopyright("Copyright \x00a9  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: ComVisible(false)]
