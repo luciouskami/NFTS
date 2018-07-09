@@ -25,12 +25,38 @@
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //2018/7/9 14:42 删除登录请求的代码，修改调用Form1.Login方法的代码。
-            Form1.Login();
-            Form1.UpdataList2();
-            base.Close();
-                
-            
+            if (this.textBox1.Text == "")
+            {
+                MessageBox.Show("账号不能为空!");
+            }
+            else if (this.textBox2.Text == "")
+            {
+                MessageBox.Show("密码不能为空!");
+            }
+            else
+            {
+                this.textBox2.Text = Form1.MD5(this.textBox2.Text);
+                HttpWebRequest request = (HttpWebRequest) WebRequest.Create("http://foreverxip.com/PCNFTS/Login.php?user=" + this.textBox1.Text + "&password=" + this.textBox2.Text);
+                HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+                string str = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                if (str == "")
+                {
+                    MessageBox.Show("账号或密码错误");
+                }
+                else
+                {
+                    char[] separator = new char[] { '|' };
+                    string[] strArray = str.Split(separator);
+                    Form1.Login(this.textBox1.Text, strArray[0], strArray[1], strArray[2]);
+                    Form1.userList.Clear();
+                    for (int i = 2; i < strArray.Length; i++)
+                    {
+                        Form1.userList.Add(strArray[i]);
+                    }
+                    Form1.UpdataList2();
+                    base.Close();
+                }
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

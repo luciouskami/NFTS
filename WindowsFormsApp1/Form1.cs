@@ -655,14 +655,13 @@ namespace WindowsFormsApp1
         {
         }
 
-        public static void Login()
+        public static void Login(string id, string user, string gold, string pass)
         {
-            //2018/7/9 14:47 修改Form1.Login方法：写死用户名、密码和"滑稽币",去掉参数。
-            userId = "1";
-            userName = "crack";
-            userGold = 99999;
-            userPass = "crack";
-            userBt.Text = userName + @"(滑稽币：" + userGold + ")";
+            userId = id;
+            userName = user;
+            userGold = int.Parse(gold);
+            userPass = pass;
+            userBt.Text = user + "(滑稽币：" + gold + ")";
             userBt.Enabled = false;
         }
 
