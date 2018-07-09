@@ -27,21 +27,21 @@
         {
             if (this.textBox1.Text == "")
             {
-                MessageBox.Show("账号不能为空!");
+                MessageBox.Show(@"账号不能为空!");
             }
             else if (this.textBox2.Text == "")
             {
-                MessageBox.Show("密码不能为空!");
+                MessageBox.Show(@"密码不能为空!");
             }
             else
             {
                 this.textBox2.Text = Form1.MD5(this.textBox2.Text);
                 HttpWebRequest request = (HttpWebRequest) WebRequest.Create("http://foreverxip.com/PCNFTS/Login.php?user=" + this.textBox1.Text + "&password=" + this.textBox2.Text);
                 HttpWebResponse response = (HttpWebResponse) request.GetResponse();
-                string str = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                string str = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException()).ReadToEnd();
                 if (str == "")
                 {
-                    MessageBox.Show("账号或密码错误");
+                    MessageBox.Show(@"账号或密码错误");
                 }
                 else
                 {
@@ -87,14 +87,14 @@
             this.button1.Name = "button1";
             this.button1.Size = new Size(0x4b, 0x17);
             this.button1.TabIndex = 0;
-            this.button1.Text = "登录";
+            this.button1.Text = @"登录";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new EventHandler(this.button1_Click);
             this.button2.Location = new Point(0xc5, 0x85);
             this.button2.Name = "button2";
             this.button2.Size = new Size(0x4b, 0x17);
             this.button2.TabIndex = 1;
-            this.button2.Text = "取消";
+            this.button2.Text = @"取消";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new EventHandler(this.button2_Click);
             this.label1.AutoSize = true;
@@ -103,21 +103,21 @@
             this.label1.Name = "label1";
             this.label1.Size = new Size(0x42, 0x1b);
             this.label1.TabIndex = 2;
-            this.label1.Text = "登录";
+            this.label1.Text = @"登录";
             this.label2.AutoSize = true;
             this.label2.Font = new Font("宋体", 12f, FontStyle.Regular, GraphicsUnit.Point, 0x86);
             this.label2.Location = new Point(0x2e, 0x35);
             this.label2.Name = "label2";
             this.label2.Size = new Size(40, 0x10);
             this.label2.TabIndex = 3;
-            this.label2.Text = "账号";
+            this.label2.Text = @"账号";
             this.label3.AutoSize = true;
             this.label3.Font = new Font("宋体", 12f, FontStyle.Regular, GraphicsUnit.Point, 0x86);
             this.label3.Location = new Point(0x2e, 0x56);
             this.label3.Name = "label3";
             this.label3.Size = new Size(40, 0x10);
             this.label3.TabIndex = 4;
-            this.label3.Text = "密码";
+            this.label3.Text = @"密码";
             this.textBox1.Location = new Point(0x5c, 0x30);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new Size(140, 0x15);
@@ -144,7 +144,7 @@
             base.ShowIcon = false;
             base.ShowInTaskbar = false;
             base.StartPosition = FormStartPosition.CenterScreen;
-            this.Text = "Form2";
+            this.Text = @"Form2";
             base.ResumeLayout(false);
             base.PerformLayout();
         }
