@@ -69,7 +69,7 @@ namespace NFTS
             button1 = new Button();
             button2 = new Button();
             label1 = new Label();
-            ((ISupportInitialize) pictureBox1).BeginInit();
+            ((ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             pictureBox1.Location = new Point(0x2b, 0xe0);
             pictureBox1.Name = "pictureBox1";
@@ -125,7 +125,7 @@ namespace NFTS
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form3";
             Load += Form3_Load;
-            ((ISupportInitialize) pictureBox1).EndInit();
+            ((ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

@@ -23,18 +23,20 @@ namespace NFTS
         {
             if (richTextBox1.Text == "")
             {
-                MessageBox.Show("内容不能为空");
+                MessageBox.Show(@"内容不能为空");
             }
-            else if (textBox1.Text == "联系方式")
+            else if (textBox1.Text == @"联系方式")
             {
-                MessageBox.Show("联系方式不能为空");
+                MessageBox.Show(@"联系方式不能为空");
             }
             else
             {
-                var request = (HttpWebRequest) WebRequest.Create(
+                var request = (HttpWebRequest)WebRequest.Create(
                     "http://foreverxip.com/PCNFTS/Bug.php?A=" + richTextBox1.Text + "&B=969352269&C=" + textBox1.Text);
-                var response = (HttpWebResponse) request.GetResponse();
-                var reader = new StreamReader(response.GetResponseStream());
+                var response = (HttpWebResponse)request.GetResponse();
+                var reader = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException());
+                response.Close();
+                request.Abort();
                 Close();
             }
         }

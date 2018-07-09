@@ -26,8 +26,8 @@ namespace NFTS
         {
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
-            ((ISupportInitialize) pictureBox1).BeginInit();
-            ((ISupportInitialize) pictureBox2).BeginInit();
+            ((ISupportInitialize)pictureBox1).BeginInit();
+            ((ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             pictureBox1.ImageLocation = "https://wx3.sinaimg.cn/mw690/006i6J4Ygy1fmrz93kqv0j30jg0qota2.jpg";
             pictureBox1.Location = new Point(0, 0);
@@ -54,8 +54,8 @@ namespace NFTS
             Name = "Form5";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form5";
-            ((ISupportInitialize) pictureBox1).EndInit();
-            ((ISupportInitialize) pictureBox2).EndInit();
+            ((ISupportInitialize)pictureBox1).EndInit();
+            ((ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 

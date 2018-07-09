@@ -35,9 +35,9 @@
             }
             else
             {
-                this.textBox2.Text = Form1.MD5(this.textBox2.Text);
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create("http://foreverxip.com/PCNFTS/Login.php?user=" + this.textBox1.Text + "&password=" + this.textBox2.Text);
-                HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+                this.textBox2.Text = Form1.Md5(this.textBox2.Text);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://foreverxip.com/PCNFTS/Login.php?user=" + this.textBox1.Text + "&password=" + this.textBox2.Text);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 string str = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException()).ReadToEnd();
                 if (str == "")
                 {
@@ -56,6 +56,8 @@
                     Form1.UpdataList2();
                     base.Close();
                 }
+                response.Close();
+                request.Abort();
             }
         }
 
@@ -158,4 +160,3 @@
         }
     }
 }
-

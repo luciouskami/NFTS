@@ -1,20 +1,18 @@
-﻿using System;
+﻿using NFTS;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Net;
-using System.Resources;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
-using NFTS;
 
 namespace WindowsFormsApp1
 {
     public class Form1 : Form
     {
-        
         public static Button userBt;
         public static string userId = ".";
         public static string userName;
@@ -74,11 +72,11 @@ namespace WindowsFormsApp1
         {
             if (ydUrl == "")
             {
-                MessageBox.Show("请选择YDWE位置");
+                MessageBox.Show(@"请选择YDWE位置");
             }
             else if (listBox1.SelectedItem == null)
             {
-                MessageBox.Show("请选择一个项目");
+                MessageBox.Show(@"请选择一个项目");
             }
             else
             {
@@ -120,8 +118,8 @@ namespace WindowsFormsApp1
             var dialog = new OpenFileDialog
             {
                 Multiselect = true,
-                Title = "请选择YDWE",
-                Filter = "选择YDWE|YDWE.exe"
+                Title = @"请选择YDWE",
+                Filter = @"选择YDWE|YDWE.exe"
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -131,7 +129,7 @@ namespace WindowsFormsApp1
 
             if (ydUrl == "")
             {
-                label5.Text = "未选择YDWE路径";
+                label5.Text = @"未选择YDWE路径";
             }
             else
             {
@@ -197,7 +195,8 @@ namespace WindowsFormsApp1
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && components != null) components.Dispose();
+            bool v = components != null;
+            if (disposing && v) components.Dispose();
             base.Dispose(disposing);
         }
 
@@ -209,37 +208,40 @@ namespace WindowsFormsApp1
             CB2 = checkBox2;
             CB3 = checkBox3;
             CB4 = checkBox4;
-            var request = (HttpWebRequest) WebRequest.Create("http://foreverxip.com/PCNFTS/GetList.php");
-            var response = (HttpWebResponse) request.GetResponse();
-            var reader = new StreamReader(response.GetResponseStream());
+            var request = (HttpWebRequest)WebRequest.Create("http://foreverxip.com/PCNFTS/GetList.php");
+            var response = (HttpWebResponse)request.GetResponse();
+            var reader = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException());
             while (!reader.EndOfStream)
             {
                 var str = reader.ReadLine();
                 if (str != "")
                 {
-                    var separator = new[] {'|'};
-                    var strArray = str.Split(separator);
-                    uiType.Add(strArray[0], int.Parse(strArray[1]));
-                    uiPrice.Add(strArray[0], int.Parse(strArray[2]));
-                    uiLibrary.Add(strArray[0], strArray[3]);
-                    uiDescription.Add(strArray[0], strArray[4]);
-                    uiComment.Add(strArray[0], strArray[5]);
-                    uiPCNFTS.Add(strArray[0], strArray[6]);
-                    uiNumber.Add(strArray[0], strArray[7]);
-                    uiImgUrl.Add(int.Parse(strArray[7]), new List<string>());
-                    uiEditionl.Add(strArray[0], int.Parse(strArray[8]));
+                    var separator = new[] { '|' };
+                    if (str != null)
+                    {
+                        var strArray = str.Split(separator);
+                        uiType.Add(strArray[0], int.Parse(strArray[1]));
+                        uiPrice.Add(strArray[0], int.Parse(strArray[2]));
+                        uiLibrary.Add(strArray[0], strArray[3]);
+                        uiDescription.Add(strArray[0], strArray[4]);
+                        uiComment.Add(strArray[0], strArray[5]);
+                        uiPCNFTS.Add(strArray[0], strArray[6]);
+                        uiNumber.Add(strArray[0], strArray[7]);
+                        uiImgUrl.Add(int.Parse(strArray[7]), new List<string>());
+                        uiEditionl.Add(strArray[0], int.Parse(strArray[8]));
+                    }
                 }
             }
 
-            request = (HttpWebRequest) WebRequest.Create("http://foreverxip.com/PCNFTS/GetImage.php");
-            response = (HttpWebResponse) request.GetResponse();
-            reader = new StreamReader(response.GetResponseStream());
+            request = (HttpWebRequest)WebRequest.Create("http://foreverxip.com/PCNFTS/GetImage.php");
+            response = (HttpWebResponse)request.GetResponse();
+            reader = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException());
             while (!reader.EndOfStream)
             {
                 char[] separator;
-                separator = new[] {'|'};
-                var strArray2 = reader.ReadLine().Split(separator);
-                if (uiImgUrl.ContainsKey(int.Parse(strArray2[0])))
+                separator = new[] { '|' };
+                var strArray2 = reader.ReadLine()?.Split(separator);
+                if (strArray2 != null && uiImgUrl.ContainsKey(int.Parse(strArray2[0])))
                 {
                     var list = uiImgUrl[int.Parse(strArray2[0])];
                     for (var i = 1; i < strArray2.Length; i++)
@@ -253,22 +255,21 @@ namespace WindowsFormsApp1
 
         private string GetHttpData(string lib, string name)
         {
-            string[] textArray1;
-            textArray1 = new[] {"https://code.csdn.net/snippets/", GetUrl(name), "/master/", lib, "/raw"};
+            var textArray1 = new[] { "https://code.csdn.net/snippets/", GetUrl(name), "/master/", lib, "/raw" };
             return GetHttpWebRequest(string.Concat(textArray1));
         }
 
         private string GetHttpWebRequest(string url)
         {
             var requestUri = new Uri(url);
-            var request = (HttpWebRequest) WebRequest.Create(requestUri);
+            var request = (HttpWebRequest)WebRequest.Create(requestUri);
             request.UserAgent = "User-Agent:Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705";
             request.Accept = "*/*";
             request.KeepAlive = true;
             request.Headers.Add("Accept-Language", "zh-cn,en-us;q=0.5");
-            var response = (HttpWebResponse) request.GetResponse();
+            var response = (HttpWebResponse)request.GetResponse();
             var responseStream = response.GetResponseStream();
-            var reader = new StreamReader(responseStream, Encoding.GetEncoding("utf-8"));
+            var reader = new StreamReader(responseStream ?? throw new InvalidOperationException(), Encoding.GetEncoding("utf-8"));
             var str = reader.ReadToEnd();
             reader.Close();
             responseStream.Close();
@@ -278,44 +279,36 @@ namespace WindowsFormsApp1
 
         private string GetUrl(string name)
         {
-            System.Net.ServicePointManager.DefaultConnectionLimit = 50;
-            string[] textArray1;
-            textArray1 = new[] {
+            ServicePointManager.DefaultConnectionLimit = 50;
+            var textArray1 = new[] {
                 "http://foreverxip.com/PCNFTS/GetUrl.php?id=", userId, "&pass=", userPass, "&lib=", uiLibrary[name]
             };
             if (uiPCNFTS[name] == "9527最帅!!!破解狗吃屎!!!")
             {
                 System.GC.Collect();
-                var request = (HttpWebRequest) WebRequest.Create(string.Concat(textArray1));
-                var response = (HttpWebResponse) request.GetResponse();
+                var request = (HttpWebRequest)WebRequest.Create(string.Concat(textArray1));
+                var response = (HttpWebResponse)request.GetResponse();
                 var str = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException()).ReadToEnd();
                 switch (str)
                 {
                     case "1":
-                        MessageBox.Show("你需要先登录！");
+                        MessageBox.Show(@"你需要先登录！");
                         Close();
                         break;
 
                     case "2":
-                        MessageBox.Show("请联系9527购买！");
+                        MessageBox.Show(@"请联系9527购买！");
                         Close();
                         break;
 
                     case "3":
-                        MessageBox.Show("请重新登录！");
+                        MessageBox.Show(@"请重新登录！");
                         Close();
                         break;
                 }
- 
-                if (response != null)
-                {
-                    response.Close();
-                }
-                if (request != null)
-                {
-                    request.Abort();
 
-                }
+                response.Close();
+                request.Abort();
                 uiPCNFTS[name] = str;
                 return str;
             }
@@ -325,7 +318,7 @@ namespace WindowsFormsApp1
 
         private void InitializeComponent()
         {
-            var manager = new ComponentResourceManager(typeof(Form1));
+            var componentResourceManager = new ComponentResourceManager(typeof(Form1));
             listBox1 = new ListBox();
             button2 = new Button();
             button4 = new Button();
@@ -353,21 +346,21 @@ namespace WindowsFormsApp1
             button2.Name = "button2";
             button2.Size = new Size(260, 0x17);
             button2.TabIndex = 2;
-            button2.Text = "安装/卸载";
+            button2.Text = @"安装/卸载";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             button4.Location = new Point(12, 0x1ac);
             button4.Name = "button4";
             button4.Size = new Size(260, 0x17);
             button4.TabIndex = 5;
-            button4.Text = "登录";
+            button4.Text = @"登录";
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             button7.Location = new Point(12, 0x142);
             button7.Name = "button7";
             button7.Size = new Size(260, 0x17);
             button7.TabIndex = 7;
-            button7.Text = "选择YDWE";
+            button7.Text = @"选择YDWE";
             button7.UseVisualStyleBackColor = true;
             button7.Click += button7_Click;
             label5.AutoSize = true;
@@ -375,7 +368,7 @@ namespace WindowsFormsApp1
             label5.Name = "label5";
             label5.Size = new Size(0x4d, 12);
             label5.TabIndex = 8;
-            label5.Text = "选择YDWE路径";
+            label5.Text = @"选择YDWE路径";
             checkBox1.AutoSize = true;
             checkBox1.Checked = true;
             checkBox1.CheckState = CheckState.Checked;
@@ -383,7 +376,7 @@ namespace WindowsFormsApp1
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(0x30, 0x10);
             checkBox1.TabIndex = 9;
-            checkBox1.Text = "事件";
+            checkBox1.Text = @"事件";
             checkBox1.UseVisualStyleBackColor = true;
             checkBox1.CheckedChanged += UpdataList;
             checkBox2.AutoSize = true;
@@ -393,7 +386,7 @@ namespace WindowsFormsApp1
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(0x30, 0x10);
             checkBox2.TabIndex = 10;
-            checkBox2.Text = "函数";
+            checkBox2.Text = @"函数";
             checkBox2.UseVisualStyleBackColor = true;
             checkBox2.CheckedChanged += UpdataList;
             checkBox3.AutoSize = true;
@@ -403,7 +396,7 @@ namespace WindowsFormsApp1
             checkBox3.Name = "checkBox3";
             checkBox3.Size = new Size(0x30, 0x10);
             checkBox3.TabIndex = 11;
-            checkBox3.Text = "动作";
+            checkBox3.Text = @"动作";
             checkBox3.UseVisualStyleBackColor = true;
             checkBox3.CheckedChanged += UpdataList;
             checkBox4.AutoSize = true;
@@ -413,21 +406,21 @@ namespace WindowsFormsApp1
             checkBox4.Name = "checkBox4";
             checkBox4.Size = new Size(0x30, 0x10);
             checkBox4.TabIndex = 12;
-            checkBox4.Text = "系统";
+            checkBox4.Text = @"系统";
             checkBox4.UseVisualStyleBackColor = true;
             checkBox4.CheckedChanged += UpdataList;
             button1.Location = new Point(12, 0x18f);
             button1.Name = "button1";
             button1.Size = new Size(0x66, 0x17);
             button1.TabIndex = 13;
-            button1.Text = "赞助";
+            button1.Text = @"赞助";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             button3.Location = new Point(170, 0x18f);
             button3.Name = "button3";
             button3.Size = new Size(0x66, 0x17);
             button3.TabIndex = 14;
-            button3.Text = "Bug/建议反馈";
+            button3.Text = @"Bug/建议反馈";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             button5.Enabled = false;
@@ -435,7 +428,7 @@ namespace WindowsFormsApp1
             button5.Name = "button5";
             button5.Size = new Size(0x66, 0x17);
             button5.TabIndex = 15;
-            button5.Text = "自定义安装";
+            button5.Text = @"自定义安装";
             button5.UseVisualStyleBackColor = true;
             button5.Click += button5_Click;
             AutoScaleDimensions = new SizeF(6f, 12f);
@@ -457,10 +450,10 @@ namespace WindowsFormsApp1
             Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 0x86);
             ForeColor = SystemColors.ActiveCaptionText;
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            Icon = Properties.Resources.Icon;
+            Icon = (Icon)(Properties.Resources.ResourceManager.GetObject("Icon"));
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "NFTSv2.1 QQ:969352269";
+            Text = @"NFTSv2.1 QQ:969352269";
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -474,7 +467,7 @@ namespace WindowsFormsApp1
             if (yd == 1)
             {
                 string[] textArray1;
-                textArray1 = new[] {ydUrl, "/share/", url_url, "/9527/", lib};
+                textArray1 = new[] { ydUrl, "/share/", url_url, "/9527/", lib };
                 if (!Directory.Exists(string.Concat(textArray1)))
                     Directory.CreateDirectory(ydUrl + "/share/" + url_url + "/9527/" + lib);
             }
@@ -492,7 +485,7 @@ namespace WindowsFormsApp1
                 path = ydUrl + "/jass/9527/" + lib;
                 str2 = path;
                 string[] textArray3;
-                textArray3 = new[] {ydUrl, "/share/", url_url, "/9527/", lib};
+                textArray3 = new[] { ydUrl, "/share/", url_url, "/9527/", lib };
                 str3 = string.Concat(textArray3);
             }
             else if (yd == 2)
@@ -585,14 +578,16 @@ namespace WindowsFormsApp1
             writer.Flush();
             writer.Close();
             stream.Close();
-            var request = (HttpWebRequest) WebRequest.Create("http://foreverxip.com/PCNFTS/Install.php?lib=" + lib);
-            var response = (HttpWebResponse) request.GetResponse();
-            var reader2 = new StreamReader(response.GetResponseStream());
+            var request = (HttpWebRequest)WebRequest.Create("http://foreverxip.com/PCNFTS/Install.php?lib=" + lib);
+            var response = (HttpWebResponse)request.GetResponse();
+            var reader2 = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException());
             ydConfig.Add(lib);
             UpdataList2();
-            button2.Text = "安装";
+            button2.Text = @"安装";
             button2.Enabled = true;
-            MessageBox.Show("安装成功", name);
+            response.Close();
+            request.Abort();
+            MessageBox.Show(@"安装成功", name);
         }
 
         private void listBox1_Click(object sender, EventArgs e)
@@ -600,7 +595,7 @@ namespace WindowsFormsApp1
             var str = listBox1.SelectedItem.ToString();
             if (uiEditionl[str] > Edition)
             {
-                button2.Text = "请安装最新版本";
+                button2.Text = @"请安装最新版本";
                 button2.Visible = false;
             }
             else
@@ -611,18 +606,18 @@ namespace WindowsFormsApp1
                     if (uiPrice[str] > 0)
                     {
                         if (userList.Contains(uiLibrary[str]))
-                            button2.Text = "安装";
+                            button2.Text = @"安装";
                         else
-                            button2.Text = "购买(滑稽币：" + uiPrice[str] + ")";
+                            button2.Text = @"购买(滑稽币：" + uiPrice[str] + ")";
                     }
                     else
                     {
-                        button2.Text = "安装";
+                        button2.Text = @"安装";
                     }
                 }
                 else
                 {
-                    button2.Text = "卸载";
+                    button2.Text = @"卸载";
                 }
             }
         }
@@ -671,11 +666,11 @@ namespace WindowsFormsApp1
             userName = user;
             userGold = int.Parse(gold);
             userPass = pass;
-            userBt.Text = user + "(滑稽币：" + gold + ")";
+            userBt.Text = user + @"(滑稽币：" + gold + ")";
             userBt.Enabled = false;
         }
 
-        public static string MD5(string encryptString)
+        public static string Md5(string encryptString)
         {
             var bytes = Encoding.Default.GetBytes(encryptString);
             MD5 md = new MD5CryptoServiceProvider();
@@ -686,32 +681,33 @@ namespace WindowsFormsApp1
         {
             if (userId == "")
             {
-                MessageBox.Show("请先登录");
+                MessageBox.Show(@"请先登录");
             }
             else if (userGold < uiPrice[name])
             {
-                MessageBox.Show("滑稽币不足");
+                MessageBox.Show(@"滑稽币不足");
             }
             else
             {
                 var request =
-                    (HttpWebRequest) WebRequest.Create("http://foreverxip.com/PCNFTS/Shop.php?user=" + userId +
+                    (HttpWebRequest)WebRequest.Create("http://foreverxip.com/PCNFTS/Shop.php?user=" + userId +
                                                        "&lib=" + lib);
-                var response = (HttpWebResponse) request.GetResponse();
-                var reader = new StreamReader(response.GetResponseStream());
+                var response = (HttpWebResponse)request.GetResponse();
+                var reader = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException());
                 if (reader.ReadToEnd() == "0")
                 {
-                    MessageBox.Show("购买失败");
+                    MessageBox.Show(@"购买失败");
                 }
                 else
                 {
                     userGold -= uiPrice[name];
                     userList.Add(lib);
-                    object objArray1;
-                    objArray1 = new IComparable[] {userName, "(滑稽币：", userGold, ")"};
+                    object objArray1 = new IComparable[] { userName, "(滑稽币：", userGold, ")" };
                     userBt.Text = string.Concat(objArray1);
                     UpdataList2();
                 }
+                response.Close();
+                request.Abort();
             }
         }
 
@@ -719,8 +715,7 @@ namespace WindowsFormsApp1
         {
             string str4;
             button2.Enabled = false;
-            button2.Text = "卸载中";
-            var dictionary = new Dictionary<string, string>();
+            button2.Text = @"卸载中";
             var path = "";
             var str2 = "";
             var str3 = "";
@@ -728,8 +723,7 @@ namespace WindowsFormsApp1
             {
                 path = ydUrl + "/jass/9527/" + lib;
                 str2 = path;
-                string[] textArray1;
-                textArray1 = new[] {ydUrl, "/share/", url_url, "/9527/", lib};
+                var textArray1 = new[] { ydUrl, "/share/", url_url, "/9527/", lib };
                 str3 = string.Concat(textArray1);
             }
             else if (yd == 2)
@@ -765,7 +759,7 @@ namespace WindowsFormsApp1
                     {
                         DeleteFile(str2 + "/" + str6 + ".j");
                         DeleteFile(str2 + "/" + str6 + ".cfg");
-                        dictionary.Add(str6, str6);
+                        new Dictionary<string, string>().Add(str6, str6);
                     }
 
                 reader3.Close();
@@ -790,16 +784,15 @@ namespace WindowsFormsApp1
                         if (strArray[0] == "#include")
                         {
                             char[] separator;
-                            separator = new[] {'/'};
+                            separator = new[] { '/' };
                             char[] chArray2;
-                            chArray2 = new[] {'.'};
+                            chArray2 = new[] { '.' };
                             var str8 = strArray[1].Split(separator)[1].Split(chArray2)[0];
                             if (str8 != lib) list2.Add(str7);
                         }
                         else if (strArray[0] == "#define")
                         {
-                            char[] separator;
-                            separator = new[] {'('};
+                            var separator = new[] { '(' };
                             var str9 = strArray[1].Split(separator)[0];
                             if (str9 != lib) list2.Add(str7);
                         }
@@ -844,9 +837,9 @@ namespace WindowsFormsApp1
             stream.Close();
             ydConfig.Remove(lib);
             UpdataList2();
-            button2.Text = "卸载";
+            button2.Text = @"卸载";
             button2.Enabled = true;
-            MessageBox.Show("卸载成功", name);
+            MessageBox.Show(@"卸载成功", name);
         }
 
         private void UpdataList(object sender, EventArgs e)

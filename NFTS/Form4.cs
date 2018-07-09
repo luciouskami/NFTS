@@ -24,13 +24,13 @@ namespace NFTS
         {
             if (e.Delta > 0)
             {
-                w = (int) (w * 1.1f);
-                h = (int) (h * 1.1f);
+                w = (int)(w * 1.1f);
+                h = (int)(h * 1.1f);
             }
             else
             {
-                w = (int) (w * 0.9f);
-                h = (int) (h * 0.9f);
+                w = (int)(w * 0.9f);
+                h = (int)(h * 0.9f);
             }
 
             box.Width = w;
@@ -56,7 +56,7 @@ namespace NFTS
         private void InitializeComponent()
         {
             pictureBox1 = new PictureBox();
-            ((ISupportInitialize) pictureBox1).BeginInit();
+            ((ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.Location = new Point(0, 0);
@@ -76,7 +76,7 @@ namespace NFTS
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form4";
             Load += Form4_Load;
-            ((ISupportInitialize) pictureBox1).EndInit();
+            ((ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -88,9 +88,9 @@ namespace NFTS
         public static void Show(string url)
         {
             var requestUri = new Uri(url);
-            var request = (HttpWebRequest) WebRequest.Create(requestUri);
-            var responseStream = ((HttpWebResponse) request.GetResponse()).GetResponseStream();
-            var image = Image.FromStream(responseStream);
+            var request = (HttpWebRequest)WebRequest.Create(requestUri);
+            var responseStream = ((HttpWebResponse)request.GetResponse()).GetResponseStream();
+            var image = Image.FromStream(responseStream ?? throw new InvalidOperationException());
             responseStream.Close();
             w = image.Width;
             h = image.Height;
@@ -100,6 +100,8 @@ namespace NFTS
             form.Height = h;
             box.Location = new Point(0, 0);
             box.ImageLocation = url;
+            responseStream.Close();
+            request.Abort();
         }
     }
 }

@@ -41,7 +41,6 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Global.cs" />
     <Compile Include="NFTS\Form3.cs">
       <SubType>Form</SubType>
     </Compile>
